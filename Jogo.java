@@ -28,10 +28,10 @@ public class Jogo {
         botDeck.addCarta();
         botDeck.addCarta();
     
-        
+        System.out.println(pessoaDeck.getValueCarta(pessoaDeck.getCarta(1)));
         System.out.println("Suas cartas são: " + pessoaDeck.getCarta(0) + " : " + pessoaDeck.getCarta(1)  + "        = " + pessoaDeck.somaPontos());
         System.out.println("------------------------------------------------------------------------------------");
-        System.out.println("Cartas do BOT: " + botDeck.getCarta(0) + " : X" );
+        System.out.println("Cartas do BOT: " + botDeck.getCarta(0) + " : |X|" );
         do { // DO PARA PEGAR MAIS CARTAS!
             System.out.println("Pegas mais cartas? (true/false)");
             pegar_cartas = teclado.nextBoolean();
@@ -42,7 +42,7 @@ public class Jogo {
                 System.out.println("Suas " + pessoaDeck.listarCartas() + "        = " + pessoaDeck.somaPontos());
                 System.out.println();
                 System.out.println("------------------------------------------------------------------------------------");
-                System.out.println("Cartas do BOT: " + botDeck.getCarta(0) + " : X" );
+                System.out.println("Cartas do BOT: " + botDeck.getCarta(0) + " : |X|" );
                 
             } else {
                 clearConsole();

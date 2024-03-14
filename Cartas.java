@@ -1,12 +1,68 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class Cartas {
-    private ArrayList<Integer> deck = new ArrayList<>();
+    private ArrayList<String> deck = new ArrayList<>();
+    private ArrayList<String> cartas = new ArrayList<>();
     private Players player;
 
+
    
-   
+
+     private ArrayList<String> criarBaralho() {
+        cartas = new ArrayList<>();
+        String[] valores = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
+        for (String valor: valores) {
+            for(int i = 0; i < 4; i++)
+                cartas.add(valor);
+        }
+        return cartas;
+     }
+
+     private String randomCarta() {
+        Random random = new Random();
+        int randomizar = random.nextInt(52);
+           return baralho(randomizar);
+    }
+    private String baralho(int n) {
+        ArrayList<String> baralho = criarBaralho();
+        String carta = "";
+        return carta = baralho.get(n);
+     }
+     
+     public int somaPontos() {
+        int soma = 0;
+       for (String carta : deck) {
+                soma += getValueCarta(carta);
+       } return soma;
+    }
+        public void addCarta() {
+            Random gerador = new Random();
+            this.deck.add(randomCarta());
+        }
+    
+        public String getCarta(int index) {
+            return this.deck.get(index);
+        }
+    
+        public int getValueCarta(String index) {
+            switch (index) {
+                case "A":
+                    return 1;
+                case "K":
+                case "Q":
+                case "J":
+                    return 10;
+                default:
+                    return Integer.parseInt(index);
+            }
+        }
+    
+
     public Players getJogador() {
         return player;
     }
@@ -24,23 +80,10 @@ public class Cartas {
         return deck.size();
     }
     
-        public void addCarta() {
-            Random gerador = new Random();
-            this.deck.add( (gerador.nextInt(10) +1));
-        }
+
+
     
-        public int getCarta(int index) {
-            
-            return this.deck.get(index);
-        }
-    
-        public int somaPontos() {
-            int soma = 0;
-            for( int i = 0; i < deck.size(); i++) {
-                   soma += deck.get(i);
-    
-        } return soma;
-        }
+      
 
         public String listarCartas() {
             StringBuilder listaCartas = new StringBuilder("cartas são: ");
