@@ -1,8 +1,5 @@
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class Cartas {
@@ -11,7 +8,7 @@ public class Cartas {
     private Players player;
 
 
-   
+    
 
      private ArrayList<String> criarBaralho() {
         cartas = new ArrayList<>();
@@ -34,12 +31,29 @@ public class Cartas {
         return carta = baralho.get(n);
      }
      
-     public int somaPontos() {
+     public int somaPontos(boolean blackjack) {
         int soma = 0;
-       for (String carta : deck) {
-                soma += getValueCarta(carta);
-       } return soma;
+        boolean aceUsado = false;
+        if (blackjack) {
+            for (String carta : deck) {
+               
+                if (!carta.equals("A")) {
+                    soma += getValueCarta(carta);
+                } else if (carta.equals("A")){
+                    if (!aceUsado && soma <= 10 && qntDeCartas() == 2) {
+                        soma += 11;
+                        aceUsado = true;
+                    } else {
+                        soma += getValueCarta(carta);
+                    }
+                }
+            }
+        }
+        return soma;
     }
+    
+
+
         public void addCarta() {
             Random gerador = new Random();
             this.deck.add(randomCarta());
@@ -49,9 +63,17 @@ public class Cartas {
             return this.deck.get(index);
         }
     
+        public Boolean conterCarta(String value) {
+            return deck.contains(value);
+            
+        }
+
+        
+
         public int getValueCarta(String index) {
             switch (index) {
                 case "A":
+                    
                     return 1;
                 case "K":
                 case "Q":

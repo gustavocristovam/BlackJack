@@ -28,8 +28,7 @@ public class Jogo {
         botDeck.addCarta();
         botDeck.addCarta();
     
-        System.out.println(pessoaDeck.getValueCarta(pessoaDeck.getCarta(1)));
-        System.out.println("Suas cartas são: " + pessoaDeck.getCarta(0) + " : " + pessoaDeck.getCarta(1)  + "        = " + pessoaDeck.somaPontos());
+        System.out.println("Suas cartas são: " + pessoaDeck.getCarta(0) + " : " + pessoaDeck.getCarta(1)  + "        = " + pessoaDeck.somaPontos(true));
         System.out.println("------------------------------------------------------------------------------------");
         System.out.println("Cartas do BOT: " + botDeck.getCarta(0) + " : |X|" );
         do { // DO PARA PEGAR MAIS CARTAS!
@@ -39,7 +38,7 @@ public class Jogo {
                 clearConsole();
                 pessoaDeck.addCarta();
                 System.out.println("Saldo: " + pessoa.getSaldo());
-                System.out.println("Suas " + pessoaDeck.listarCartas() + "        = " + pessoaDeck.somaPontos());
+                System.out.println("Suas " + pessoaDeck.listarCartas() + "        = " + pessoaDeck.somaPontos(true));
                 System.out.println();
                 System.out.println("------------------------------------------------------------------------------------");
                 System.out.println("Cartas do BOT: " + botDeck.getCarta(0) + " : |X|" );
@@ -47,15 +46,15 @@ public class Jogo {
             } else {
                 clearConsole();
                 System.out.println("Saldo: " + pessoa.getSaldo());
-                System.out.println("Suas " + pessoaDeck.listarCartas()  + "        = " + pessoaDeck.somaPontos());
+                System.out.println("Suas " + pessoaDeck.listarCartas()  + "        = " + pessoaDeck.somaPontos(true));
                 
-                while (botDeck.somaPontos() < 17) {
+                while (botDeck.somaPontos(true) < 17) {
                     botDeck.addCarta();
             }
             System.out.println("------------------------------------------------------------------------------------");
-                System.out.println("Bot " + botDeck.listarCartas()  + "        = " + botDeck.somaPontos());
+                System.out.println("Bot " + botDeck.listarCartas()  + "        = " + botDeck.somaPontos(true));
                 System.out.println();
-                switch (pessoaDeck.vencerdorPartida(pessoaDeck.somaPontos(), botDeck.somaPontos())) {
+                switch (pessoaDeck.vencerdorPartida(pessoaDeck.somaPontos(true), botDeck.somaPontos(true))) {
                     case 0: 
                     System.out.println("Você perdeu!");
                     pessoa.removeSaldo(25);

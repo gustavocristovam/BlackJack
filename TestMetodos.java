@@ -12,11 +12,24 @@ public class TestMetodos {
         Cartas  cartas_do_CPU = new Cartas();
         cartas_do_jogador.addCarta();
         cartas_do_jogador.addCarta();
-
-
-        System.out.println(cartas_do_jogador.getCarta(1));
-        System.out.println(cartas_do_jogador.getValueCarta(cartas_do_jogador.getCarta(1)));
+        cartas_do_jogador.addCarta();
         
+        
+
+
+        System.out.println("CARTAS: " + cartas_do_jogador.qntDeCartas());        
+        System.out.println(cartas_do_jogador.listarCartas());
+        System.out.println(cartas_do_jogador.somaPontos());
+      
+
+        if (cartas_do_jogador.conterCarta("A")) {
+            System.out.println("TEMMM!!!");
+        };
+        
+
+        //SE A TIVER JUNTO DE UM K Q J 10 = BLACK JACK NATURAL
+        //SE CONTER UM A e soma dos pontos >21 A vale 1.
+            
 
     }
 }
