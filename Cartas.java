@@ -4,32 +4,17 @@ import java.util.Random;
 
 public class Cartas {
     private ArrayList<String> deck = new ArrayList<>();
-    private ArrayList<String> cartas = new ArrayList<>();
-    private Players player;
-
-
     
-
-     private ArrayList<String> criarBaralho() {
-        cartas = new ArrayList<>();
-        String[] valores = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
-        for (String valor: valores) {
-            for(int i = 0; i < 4; i++)
-                cartas.add(valor);
-        }
-        return cartas;
-     }
+    private Players player;
+    Baralho baralho_universal = new Baralho();
 
      private String randomCarta() {
         Random random = new Random();
+       
         int randomizar = random.nextInt(52);
-           return baralho(randomizar);
+           return baralho_universal.baralhoSeletor(randomizar);
     }
-    private String baralho(int n) {
-        ArrayList<String> baralho = criarBaralho();
-        String carta = "";
-        return carta = baralho.get(n);
-     }
+   
      
      public int somaPontos(boolean blackjack) {
         int soma = 0;
