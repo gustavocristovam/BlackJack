@@ -4,77 +4,80 @@ import java.util.Scanner;
 public class Jogo {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
-        Jogador jogador = new Jogador();
+        Pessoa pessoa = new Pessoa();
         Bot bot = new Bot();
-        Random gerador = new Random();
-        System.out.println("Saldo: " + jogador.getSaldo());
-        System.out.println("Pegando cartas...");
-        
-        jogador.addCarta((gerador.nextInt(10) +1));
-        jogador.addCarta((gerador.nextInt(10) +1));
-        bot.addCarta((gerador.nextInt(10) +1));
-        bot.addCarta((gerador.nextInt(10) +1));
 
-        System.out.println("Suas cartas são: " + jogador.infoCarta(0) + " : " + jogador.infoCarta(1));
+        Cartas pessoaDeck = new Cartas();
+        Cartas botDeck = new Cartas();
+
+        pessoaDeck.setJogador(pessoa);
+        botDeck.setJogador(bot);
+
+        clearConsole();
+        System.out.println("Saldo: " + pessoa.getSaldo());
+       
+       
+        pessoaDeck.addCarta();
+        pessoaDeck.addCarta();
+        botDeck.addCarta();
+        botDeck.addCarta();
+    
+        
+        System.out.println("Suas cartas são: " + pessoaDeck.getCarta(0) + " : " + pessoaDeck.getCarta(1)  + "        = " + pessoaDeck.somaPontos());
         System.out.println("------------------------------------------------------------------------------------");
-        System.out.println("Cartas do BOT: " + bot.infoCarta(0) + " : X" );
+        System.out.println("Cartas do BOT: " + botDeck.getCarta(0) + " : X" );
         do {
             System.out.println("Pegas mais cartas? (true/false)");
             boolean decisao = teclado.nextBoolean();
             if (decisao) {
-                jogador.addCarta(gerador.nextInt(10) + 1);
-                int numCartas = jogador.qntDeCartas();
-                System.out.print("Suas cartas são: ");
-                for (int i = 0; i < numCartas; i++) {
-                    System.out.print(jogador.infoCarta(i));
-                    if (i < numCartas - 1) {
-                        System.out.print(" : ");
-                    }
-                }
+                clearConsole();
+                pessoaDeck.addCarta();
+                System.out.println("Saldo: " + pessoa.getSaldo());
+                System.out.println("Suas " + pessoaDeck.listarCartas() + "        = " + pessoaDeck.somaPontos());
                 System.out.println();
                 System.out.println("------------------------------------------------------------------------------------");
-                System.out.println("Cartas do BOT: " + bot.infoCarta(0) + " : X" );
+                System.out.println("Cartas do BOT: " + botDeck.getCarta(0) + " : X" );
                 
             } else {
-                int numCartas = jogador.qntDeCartas();
-                System.out.print("Suas cartas são: ");
-                for (int i = 0; i < numCartas; i++) {
-                    System.out.print(jogador.infoCarta(i));
-                    if (i < numCartas - 1) {
-                        System.out.print(" : ");
-                    }
-                }
+                clearConsole();
+                System.out.println("Saldo: " + pessoa.getSaldo());
+                System.out.println("Suas " + pessoaDeck.listarCartas()  + "        = " + pessoaDeck.somaPontos());
+                
+                while (botDeck.somaPontos() < 17) {
+                    botDeck.addCarta();
+            }
+            System.out.println("------------------------------------------------------------------------------------");
+                System.out.println("Bot " + botDeck.listarCartas()  + "        = " + botDeck.somaPontos());
                 System.out.println();
-                while (bot.somaPontos() < 17) {
-                    bot.addCarta((gerador.nextInt(10) +1));
-                }
-                System.out.println("------------------------------------------------------------------------------------");
-                int numCartasBot = bot.qntDeCartas();
-                System.out.print("Cartas do bot: ");
-                for (int i = 0; i < numCartasBot; i++) {
-                    System.out.print(bot.infoCarta(i));
-                    if (i < numCartasBot - 1) {
-                        System.out.print(" : ");
-                    }
-                }
-                System.out.println();
-                if (bot.somaPontos() > jogador.somaPontos() && bot.somaPontos() <= 21) {
-                    System.out.println("------------------------------------------------------------------------------------");
-                    System.out.println("------------------------------------------------------------------------------------");
-                    System.out.println("O BOT FOI VENCEDOR!!!!");
-                    break;
-                } else if (jogador.somaPontos() > bot.somaPontos() && jogador.somaPontos() <= 21) {
-                    System.out.println("------------------------------------------------------------------------------------");
-                    System.out.println("------------------------------------------------------------------------------------");
-                    System.out.println("O JOGADOR FOI VENCEDOR!!!!");
-                    break;
-                } else {
-                    break;
-                }
+                System.out.println(pessoaDeck.vencerdorPartida(pessoaDeck.somaPontos(), botDeck.somaPontos()));
+                break;
+                
             }
         } while (true);
+        
+        
 
        
 
+    }
+
+
+   // Método para limpar o console
+    public static void clearConsole() {
+        try {
+            final String os = System.getProperty("os.name");
+
+            // Verifica qual sistema operacional está sendo usado
+            if (os.contains("Windows")) {
+                // Se for Windows, usa o comando 'cls' para limpar o console
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                // Se for outro sistema operacional (UNIX/Linux/Mac), usa o comando 'clear'
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+            }
+        } catch (final Exception e) {
+            // Se ocorrer uma exceção, imprime-a
+            System.out.println("Erro ao limpar o console: " + e.getMessage());
+        }
     }
 }

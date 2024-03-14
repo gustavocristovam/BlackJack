@@ -3,16 +3,16 @@ import java.util.Random;
 
 public class Cartas {
     private ArrayList<Integer> deck = new ArrayList<>();
-    private Jogador jogador;
+    private Players player;
 
    
    
-    public Jogador getJogador() {
-        return jogador;
+    public Players getJogador() {
+        return player;
     }
 
-    public void setJogador(Jogador jogador) {
-        this.jogador = jogador;
+    public void setJogador(Players player) {
+       this.player = player;
     }
 
 
@@ -39,7 +39,8 @@ public class Cartas {
         }
 
         public String listarCartas() {
-            StringBuilder listaCartas = new StringBuilder("Suas cartas são: ");
+            StringBuilder listaCartas = new StringBuilder("cartas são: ");
+
             for (int i = 0; i < qntDeCartas(); i++) {
                 listaCartas.append(getCarta(i));
                 if (i < qntDeCartas() - 1) {
@@ -48,7 +49,30 @@ public class Cartas {
             }
             return listaCartas.toString();
         }
-    }
+
+        public String vencerdorPartida(int pessoa, int bot) {
+            if (pessoa > 21 && bot > 21) {
+                return "Empatou!";
+            } else if ((21-pessoa) < (21-bot)) { //Quem é o mais proximo de 21 o que tiver menos pontos vence!
+                if(21-pessoa >= 0) { // Conferindo para ver se nao ultrapassou 21. Ex: tire 23 PONTOS. fiquei com -2. então perdi!
+                    return "Você venceu!";
+                } else {
+                    return "Você perdeu!";
+                }
+            } else if ((21-bot) < (21-pessoa)) {
+                if (21-bot >= 0) {
+                    return "Você perdeu!";
+                } else {
+                    return "Você venceu!";
+                }
+            } else if (pessoa == bot) {
+                return "Empatou!";
+                
+            } 
+            return "Error!";
+            }
+        }
+    
     
 
 
