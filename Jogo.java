@@ -49,7 +49,22 @@ public class Jogo {
             System.out.println("------------------------------------------------------------------------------------");
                 System.out.println("Bot " + botDeck.listarCartas()  + "        = " + botDeck.somaPontos());
                 System.out.println();
-                System.out.println(pessoaDeck.vencerdorPartida(pessoaDeck.somaPontos(), botDeck.somaPontos()));
+                switch (pessoaDeck.vencerdorPartida(pessoaDeck.somaPontos(), botDeck.somaPontos())) {
+                    case 0: 
+                    System.out.println("Você perdeu!");
+                    pessoa.removeSaldo(-25);
+                    break;
+                    case 1: 
+                    System.out.println("Voce ganhou!");  
+                    pessoa.setSaldo(25);
+                    break;
+                    case 2: 
+                    System.out.println("Você empatou!");  break;
+                    case 3:
+                     System.out.println("ERROR!");  break;
+                    default:
+                     System.out.println("ERROR no Switch!");  break;
+                }
                 break;
                 
             }

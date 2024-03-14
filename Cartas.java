@@ -50,26 +50,27 @@ public class Cartas {
             return listaCartas.toString();
         }
 
-        public String vencerdorPartida(int pessoa, int bot) {
-            if (pessoa > 21 && bot > 21) {
-                return "Empatou!";
+        public int vencerdorPartida(int pessoa, int bot) {
+            if (pessoa > 21 && bot > 21) {   // 1 = venceu  0 =  perdeu 2 = empatou 3 = erro
+                return 2;
             } else if ((21-pessoa) < (21-bot)) { //Quem é o mais proximo de 21 o que tiver menos pontos vence!
                 if(21-pessoa >= 0) { // Conferindo para ver se nao ultrapassou 21. Ex: tire 23 PONTOS. fiquei com -2. então perdi!
-                    return "Você venceu!";
+                    return 1;
                 } else {
-                    return "Você perdeu!";
+                    return 0;
+                   
                 }
             } else if ((21-bot) < (21-pessoa)) {
                 if (21-bot >= 0) {
-                    return "Você perdeu!";
+                    return 0;
                 } else {
-                    return "Você venceu!";
+                    return 1;
                 }
             } else if (pessoa == bot) {
-                return "Empatou!";
+                return 2;
                 
             } 
-            return "Error!";
+            return 3;
             }
         }
     

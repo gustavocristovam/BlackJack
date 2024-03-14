@@ -5,11 +5,11 @@ public class Pessoa extends Players {
         return this.saldo;
     }
 
-    public void lostSaldo(int saldo) {
+    public void removeSaldo(int saldo) {
         this.saldo -= saldo;
     }
 
-    public void gainSaldo(int saldo) {
+    public void setSaldo(int saldo) {
         this.saldo += saldo;
     }
 }
