@@ -1,0 +1,44 @@
+import java.util.ArrayList;
+
+public class Jogador {
+    private int saldo = 100;
+    private ArrayList<Integer> cartas = new ArrayList<>();;
+     
+
+    public int getSaldo() {
+        return this.saldo;
+    }
+
+    public void lostSaldo(int saldo) {
+        this.saldo -= saldo;
+    }
+
+    public void gainSaldo(int saldo) {
+        this.saldo += saldo;
+        
+    }
+
+public int qntDeCartas() {
+    return cartas.size();
+}
+
+    public void addCarta(int carta) {
+        this.cartas.add(carta);
+    }
+
+    public int infoCarta(int index) {
+        
+        return this.cartas.get(index);
+    }
+
+    public int somaPontos() {
+        int soma = 0;
+        for( int i = 0; i < cartas.size(); i++) {
+               soma += cartas.get(i);
+
+    } return soma;
+    }
+    
+   
+
+}
