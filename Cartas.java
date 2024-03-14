@@ -15,6 +15,10 @@ public class Cartas {
        this.player = player;
     }
 
+    public void clearCartas() {
+        deck.clear();
+    }
+
 
     public int qntDeCartas() {
         return deck.size();

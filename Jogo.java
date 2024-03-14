@@ -12,7 +12,9 @@ public class Jogo {
 
         pessoaDeck.setJogador(pessoa);
         botDeck.setJogador(bot);
-
+    do {
+        pessoaDeck.clearCartas();
+        botDeck.clearCartas();
         clearConsole();
         System.out.println("Saldo: " + pessoa.getSaldo());
        
@@ -52,7 +54,7 @@ public class Jogo {
                 switch (pessoaDeck.vencerdorPartida(pessoaDeck.somaPontos(), botDeck.somaPontos())) {
                     case 0: 
                     System.out.println("Você perdeu!");
-                    pessoa.removeSaldo(-25);
+                    pessoa.removeSaldo(25);
                     break;
                     case 1: 
                     System.out.println("Voce ganhou!");  
@@ -65,10 +67,13 @@ public class Jogo {
                     default:
                      System.out.println("ERROR no Switch!");  break;
                 }
+                System.out.println("JOGAR NOVAMENTE? (true/false)");
+                decisao = teclado.nextBoolean();
                 break;
                 
             }
         } while (true);
+    } while (true);
         
         
 
