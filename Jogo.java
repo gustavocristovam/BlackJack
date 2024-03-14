@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 public class Jogo {
     public static void main(String[] args) {
+        boolean jogar_novamente;
+        boolean pegar_cartas;
         Scanner teclado = new Scanner(System.in);
         Pessoa pessoa = new Pessoa();
         Bot bot = new Bot();
@@ -13,6 +15,8 @@ public class Jogo {
         pessoaDeck.setJogador(pessoa);
         botDeck.setJogador(bot);
     do {
+
+        if ( pessoa.getSaldo() > 0) {
         pessoaDeck.clearCartas();
         botDeck.clearCartas();
         clearConsole();
@@ -28,10 +32,10 @@ public class Jogo {
         System.out.println("Suas cartas são: " + pessoaDeck.getCarta(0) + " : " + pessoaDeck.getCarta(1)  + "        = " + pessoaDeck.somaPontos());
         System.out.println("------------------------------------------------------------------------------------");
         System.out.println("Cartas do BOT: " + botDeck.getCarta(0) + " : X" );
-        do {
+        do { // DO PARA PEGAR MAIS CARTAS!
             System.out.println("Pegas mais cartas? (true/false)");
-            boolean decisao = teclado.nextBoolean();
-            if (decisao) {
+            pegar_cartas = teclado.nextBoolean();
+            if (pegar_cartas) {
                 clearConsole();
                 pessoaDeck.addCarta();
                 System.out.println("Saldo: " + pessoa.getSaldo());
@@ -68,12 +72,19 @@ public class Jogo {
                      System.out.println("ERROR no Switch!");  break;
                 }
                 System.out.println("JOGAR NOVAMENTE? (true/false)");
-                decisao = teclado.nextBoolean();
+                jogar_novamente = teclado.nextBoolean();
                 break;
-                
+      
             }
         } while (true);
-    } while (true);
+        
+    } else {
+        System.out.println("Você nao dinheiro suficiente para jogar!");
+        break;
+    }
+    
+    } while (jogar_novamente);
+   
         
         
 
