@@ -1,6 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
+import Baralho.Baralho;
 import Baralho.CartasPlayers;
 import Players.Bot;
 import Players.Pessoa;
@@ -13,17 +14,22 @@ public class Jogo {
         Pessoa pessoa = new Pessoa();
         Bot bot = new Bot();
 
-        CartasPlayers pessoaDeck = new CartasPlayers();
-        CartasPlayers botDeck = new CartasPlayers();
-
-        pessoaDeck.setJogador(pessoa);
-        botDeck.setJogador(bot);
+       
     do {
 
         if ( pessoa.getSaldo() > 0) {
+           
+        Baralho baralho = new Baralho();
+       
+        CartasPlayers pessoaDeck = new CartasPlayers(baralho);
+        CartasPlayers botDeck = new CartasPlayers(baralho);
+
+        pessoaDeck.setJogador(pessoa);
+        botDeck.setJogador(bot);
         pessoaDeck.clearCartas();
         botDeck.clearCartas();
         clearConsole();
+       
         System.out.println("Saldo: " + pessoa.getSaldo());
        
        
@@ -31,6 +37,7 @@ public class Jogo {
         pessoaDeck.addCarta();
         botDeck.addCarta();
         botDeck.addCarta();
+        System.out.println("CARTAS BARALHO:" + baralho.quantidadeDeCartas());
     
         System.out.println("Suas cartas são: " + pessoaDeck.getCarta(0) + " : " + pessoaDeck.getCarta(1)  + "        = " + pessoaDeck.somaPontos(true));
         System.out.println("------------------------------------------------------------------------------------");
