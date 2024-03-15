@@ -27,7 +27,9 @@ public class Baralho {
 
     // Método para selecionar uma carta do baralho global
     public String selecionarCarta(int index) {
-        return cartas.get(index);
+        String carta = cartas.get(index);
+        removerCarta(index);
+        return carta;
     }
 
     // Método para remover uma carta do baralho global

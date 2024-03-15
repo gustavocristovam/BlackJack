@@ -13,13 +13,13 @@ public class Jogo {
         Scanner teclado = new Scanner(System.in);
         Pessoa pessoa = new Pessoa();
         Bot bot = new Bot();
-
+        Baralho baralho = new Baralho();
        
     do {
 
         if ( pessoa.getSaldo() > 0) {
            
-        Baralho baralho = new Baralho();
+       
        
         CartasPlayers pessoaDeck = new CartasPlayers(baralho);
         CartasPlayers botDeck = new CartasPlayers(baralho);

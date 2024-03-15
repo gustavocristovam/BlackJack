@@ -19,7 +19,7 @@ public class CartasPlayers{
     //PEGAR CARTA ALEATORIA DO BARALHO
      private int randomCarta() {
         Random random = new Random();
-        int randomizar = random.nextInt(52);
+        int randomizar = random.nextInt(baralho.quantidadeDeCartas());
            return randomizar;
     }
    
@@ -50,7 +50,7 @@ public class CartasPlayers{
         public void addCarta() {
             int carta = randomCarta();
             this.deck.add(baralho.selecionarCarta(carta));
-            baralho.removerCarta(carta);
+           
 
         }
     
