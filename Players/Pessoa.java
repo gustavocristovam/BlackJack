@@ -1,3 +1,4 @@
+package Players;
 public class Pessoa extends Players {
     private int saldo = 100;
 

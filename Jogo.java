@@ -1,6 +1,10 @@
 import java.util.Random;
 import java.util.Scanner;
 
+import Baralho.CartasPlayers;
+import Players.Bot;
+import Players.Pessoa;
+
 public class Jogo {
     public static void main(String[] args) {
         boolean jogar_novamente;
@@ -9,8 +13,8 @@ public class Jogo {
         Pessoa pessoa = new Pessoa();
         Bot bot = new Bot();
 
-        Cartas pessoaDeck = new Cartas();
-        Cartas botDeck = new Cartas();
+        CartasPlayers pessoaDeck = new CartasPlayers();
+        CartasPlayers botDeck = new CartasPlayers();
 
         pessoaDeck.setJogador(pessoa);
         botDeck.setJogador(bot);

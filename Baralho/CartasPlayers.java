@@ -1,21 +1,29 @@
+package Baralho;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Cartas {
-    private ArrayList<String> deck = new ArrayList<>();
-    
-    private Players player;
-    Baralho baralho_universal = new Baralho();
+import Players.Players;
 
-     private String randomCarta() {
+public class CartasPlayers{
+
+    private ArrayList<String> deck = new ArrayList<>();
+    private Baralho baralho;
+    private Players player;
+   
+    public CartasPlayers(Baralho baralho) {
+        this.baralho = baralho;
+    }
+
+
+    //PEGAR CARTA ALEATORIA DO BARALHO
+     private int randomCarta() {
         Random random = new Random();
-       
         int randomizar = random.nextInt(52);
-           return baralho_universal.baralhoSeletor(randomizar);
+           return randomizar;
     }
    
-     
+     //SOMA DE PONTOS E SISTEMA DE A = 1 OU 11
      public int somaPontos(boolean blackjack) {
         int soma = 0;
         boolean aceUsado = false;
@@ -38,23 +46,27 @@ public class Cartas {
     }
     
 
-
+        //ADICIONAR CARTA AO DECK DO JOGADOR
         public void addCarta() {
-            Random gerador = new Random();
-            this.deck.add(randomCarta());
+            int carta = randomCarta();
+            this.deck.add(baralho.selecionarCarta(carta));
+            baralho.removerCarta(carta);
+
         }
     
+        //VISUALIZAR CARTA NUM CERTO INDEX DO DECK
         public String getCarta(int index) {
             return this.deck.get(index);
         }
     
+        //CONFERIR SE A CARTA EXISTE NO DECK
         public Boolean conterCarta(String value) {
             return deck.contains(value);
             
         }
 
         
-
+//      //DESCOBRIR VALOR ATRIBUIDO A CADA CARTA
         public int getValueCarta(String index) {
             switch (index) {
                 case "A":
@@ -70,6 +82,7 @@ public class Cartas {
         }
     
 
+
     public Players getJogador() {
         return player;
     }
@@ -78,11 +91,12 @@ public class Cartas {
        this.player = player;
     }
 
+    //LIMPAR CARTAS
     public void clearCartas() {
         deck.clear();
     }
 
-
+    // CONFERIR TAMANHO DO BARALHO
     public int qntDeCartas() {
         return deck.size();
     }
@@ -91,7 +105,7 @@ public class Cartas {
 
     
       
-
+        //LISTAR TODAS AS CARTAS DO DECK
         public String listarCartas() {
             StringBuilder listaCartas = new StringBuilder("cartas são: ");
 
@@ -103,7 +117,7 @@ public class Cartas {
             }
             return listaCartas.toString();
         }
-
+        // CONFERIR VENCEDOR!
         public int vencerdorPartida(int pessoa, int bot) {
             if (pessoa > 21 && bot > 21) {   // 1 = venceu  0 =  perdeu 2 = empatou 3 = erro
                 return 2;
