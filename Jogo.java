@@ -13,13 +13,13 @@ public class Jogo {
         Scanner teclado = new Scanner(System.in);
         Pessoa pessoa = new Pessoa();
         Bot bot = new Bot();
-        Baralho baralho = new Baralho();
+        
        
     do {
 
         if ( pessoa.getSaldo() > 0) {
            
-       
+            Baralho baralho = new Baralho();
        
         CartasPlayers pessoaDeck = new CartasPlayers(baralho);
         CartasPlayers botDeck = new CartasPlayers(baralho);
@@ -39,7 +39,7 @@ public class Jogo {
         botDeck.addCarta();
         System.out.println("CARTAS BARALHO:" + baralho.quantidadeDeCartas());
     
-        System.out.println("Suas cartas são: " + pessoaDeck.getCarta(0) + " : " + pessoaDeck.getCarta(1)  + "        = " + pessoaDeck.somaPontos(true));
+        System.out.println("Suas cartas são: " + pessoaDeck.getCarta(0) + " : " + pessoaDeck.getCarta(1)  + "        = " + pessoaDeck.somaPontos(true) + "/"  + pessoaDeck.somaPontos(false));
         System.out.println("------------------------------------------------------------------------------------");
         System.out.println("Cartas do BOT: " + botDeck.getCarta(0) + " : |X|" );
         do { // DO PARA PEGAR MAIS CARTAS!
@@ -49,7 +49,7 @@ public class Jogo {
                 clearConsole();
                 pessoaDeck.addCarta();
                 System.out.println("Saldo: " + pessoa.getSaldo());
-                System.out.println("Suas " + pessoaDeck.listarCartas() + "        = " + pessoaDeck.somaPontos(true));
+                System.out.println("Suas " + pessoaDeck.listarCartas() + "        = " + pessoaDeck.somaPontos(true) + "/"  + pessoaDeck.somaPontos(false));
                 System.out.println();
                 System.out.println("------------------------------------------------------------------------------------");
                 System.out.println("Cartas do BOT: " + botDeck.getCarta(0) + " : |X|" );
@@ -57,15 +57,20 @@ public class Jogo {
             } else {
                 clearConsole();
                 System.out.println("Saldo: " + pessoa.getSaldo());
-                System.out.println("Suas " + pessoaDeck.listarCartas()  + "        = " + pessoaDeck.somaPontos(true));
+                System.out.println("Suas " + pessoaDeck.listarCartas()  + "        = " + pessoaDeck.somaPontos(true) + "/"  + pessoaDeck.somaPontos(false));
                 
-                while (botDeck.somaPontos(true) < 17) {
+                while (botDeck.maoForte(botDeck.somaPontos(true), botDeck.somaPontos(false)) < 17) { // 2 DECK COM 2 VALORES PRIMEIRO BUG A SER RESOLVIDO
+
                     botDeck.addCarta();
-            }
+           }
+
+            
             System.out.println("------------------------------------------------------------------------------------");
-                System.out.println("Bot " + botDeck.listarCartas()  + "        = " + botDeck.somaPontos(true));
+                System.out.println("Bot " + botDeck.listarCartas()  + "        = " + botDeck.somaPontos(true) + "/"  + botDeck.somaPontos(false));
                 System.out.println();
-                switch (pessoaDeck.vencerdorPartida(pessoaDeck.somaPontos(true), botDeck.somaPontos(true))) {
+
+                
+                switch (pessoaDeck.check21(pessoaDeck.somaPontos(true), botDeck.somaPontos(true), pessoaDeck.somaPontos(false),botDeck.somaPontos(false))) {
                     case 0: 
                     System.out.println("Você perdeu!");
                     pessoa.removeSaldo(25);

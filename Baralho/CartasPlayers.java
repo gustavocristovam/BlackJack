@@ -26,25 +26,33 @@ public class CartasPlayers{
      //SOMA DE PONTOS E SISTEMA DE A = 1 OU 11
      public int somaPontos(boolean blackjack) {
         int soma = 0;
-        boolean aceUsado = false;
+        //boolean aceUsado = false;
         if (blackjack) {
             for (String carta : deck) {
-               
                 if (!carta.equals("A")) {
                     soma += getValueCarta(carta);
                 } else if (carta.equals("A")){
-                    if (!aceUsado && soma <= 10 && qntDeCartas() == 2) {
+                   
+                   
                         soma += 11;
-                        aceUsado = true;
-                    } else {
-                        soma += getValueCarta(carta);
-                    }
-                }
+
+                } 
             }
-        }
+                }else if (!blackjack) {
+                    for (String carta : deck) {
+                 if (!carta.equals("A")) {
+                     soma += getValueCarta(carta);
+                    } else if (carta.equals("A")){
+                        soma += 1;
+                           }
+           }
+       }
+                
         return soma;
     }
     
+
+
 
         //ADICIONAR CARTA AO DECK DO JOGADOR
         public void addCarta() {
@@ -70,7 +78,6 @@ public class CartasPlayers{
         public int getValueCarta(String index) {
             switch (index) {
                 case "A":
-                    
                     return 1;
                 case "K":
                 case "Q":
@@ -107,7 +114,7 @@ public class CartasPlayers{
       
         //LISTAR TODAS AS CARTAS DO DECK
         public String listarCartas() {
-            StringBuilder listaCartas = new StringBuilder("cartas são: ");
+            StringBuilder listaCartas = new StringBuilder( "("+qntDeCartas()+")" + " cartas são: ");
 
             for (int i = 0; i < qntDeCartas(); i++) {
                 listaCartas.append(getCarta(i));
@@ -117,31 +124,67 @@ public class CartasPlayers{
             }
             return listaCartas.toString();
         }
-        // CONFERIR VENCEDOR!
-        public int vencerdorPartida(int pessoa, int bot) {
-            if (pessoa > 21 && bot > 21) {   // 1 = venceu  0 =  perdeu 2 = empatou 3 = erro
+
+
+
+        public int maoForte( int blackJack, int NoBlackJack) {
+            int pontos;
+            if (21-blackJack < 21-NoBlackJack) { // SE A MAO EM QUE O "A" VALE 1, A SOMA DE QUANTIDADE DE PONTOS -21 FOR maior QUE A MAO EM QUE O "A" 11. SETAR MAO EM QUE O "A" VALE 1
+                pontos = blackJack;                 //EX: DECK: A9  BLACKJACK = 20  NOBLACKJACK = 10
+           } else if ((21-blackJack > 21-NoBlackJack)) {
+               pontos = NoBlackJack;
+           } else {
+               pontos = blackJack;
+           }
+           return pontos;
+        }
+
+
+
+
+        public int check21(int pessoaBlackJack, int botBlackJack, int pessoaNoBlackJack, int botNoBlackJack ) {
+                //maior ponto em relação a 21
+            int pontosBot;
+            int pontosPessoa;
+            if (21-pessoaBlackJack < 21-pessoaNoBlackJack) {
+                 pontosPessoa = pessoaBlackJack;
+            } else if (21-pessoaBlackJack > 21-pessoaNoBlackJack){
+                 pontosPessoa = pessoaNoBlackJack;
+            } else {
+                pontosPessoa = pessoaBlackJack;
+            }
+
+            if (21-botBlackJack < 21-botNoBlackJack) {
+                 pontosBot = botBlackJack;
+            } else if ((21-botBlackJack > 21-botNoBlackJack)) {
+                pontosBot = botNoBlackJack;
+            } else {
+                pontosBot = botBlackJack;
+            }
+
+            if (pontosPessoa > 21 && pontosBot > 21) {   // 1 = venceu  0 =  perdeu 2 = empatou 3 = erro
                 return 2;
-            } else if ((21-pessoa) < (21-bot)) { //Quem é o mais proximo de 21 o que tiver menos pontos vence!
-                if(21-pessoa >= 0) { // Conferindo para ver se nao ultrapassou 21. Ex: tire 23 PONTOS. fiquei com -2. então perdi!
+            } else if ((21-pontosPessoa) < (21-pontosBot)) { //Quem é o mais proximo de 21 o que tiver menos pontos vence!
+                if(21-pontosPessoa >= 0) { // Conferindo para ver se nao ultrapassou 21. Ex: tire 23 PONTOS. fiquei com -2. então perdi!
                     return 1;
                 } else {
                     return 0;
                    
                 }
-            } else if ((21-bot) < (21-pessoa)) {
-                if (21-bot >= 0) {
+            } else if ((21-pontosBot) < (21-pontosPessoa)) {
+                if (21-pontosBot >= 0) {
                     return 0;
                 } else {
                     return 1;
                 }
-            } else if (pessoa == bot) {
+            } else if (pontosPessoa == pontosBot) {
                 return 2;
                 
             } 
             return 3;
             }
+            
         }
-    
     
 
 
