@@ -28,7 +28,7 @@ public class Jogo {
         botDeck.setJogador(bot);
         pessoaDeck.clearCartas();
         botDeck.clearCartas();
-        clearConsole();
+        clearConsole(); 
        
         System.out.println("Saldo: " + pessoa.getSaldo());
        
