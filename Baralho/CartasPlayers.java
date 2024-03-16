@@ -142,26 +142,9 @@ public class CartasPlayers{
 
 
 
-        public int check21(int pessoaBlackJack, int botBlackJack, int pessoaNoBlackJack, int botNoBlackJack ) {
+        public int check21(int pontosBot, int pontosPessoa) {
                 //maior ponto em relação a 21
-            int pontosBot;
-            int pontosPessoa;
-            if (21-pessoaBlackJack < 21-pessoaNoBlackJack) {
-                 pontosPessoa = pessoaBlackJack;
-            } else if (21-pessoaBlackJack > 21-pessoaNoBlackJack){
-                 pontosPessoa = pessoaNoBlackJack;
-            } else {
-                pontosPessoa = pessoaBlackJack;
-            }
-
-            if (21-botBlackJack < 21-botNoBlackJack) {
-                 pontosBot = botBlackJack;
-            } else if ((21-botBlackJack > 21-botNoBlackJack)) {
-                pontosBot = botNoBlackJack;
-            } else {
-                pontosBot = botBlackJack;
-            }
-
+          
             if (pontosPessoa > 21 && pontosBot > 21) {   // 1 = venceu  0 =  perdeu 2 = empatou 3 = erro
                 return 2;
             } else if ((21-pontosPessoa) < (21-pontosBot)) { //Quem é o mais proximo de 21 o que tiver menos pontos vence!

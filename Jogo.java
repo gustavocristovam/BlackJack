@@ -70,7 +70,7 @@ public class Jogo {
                 System.out.println();
 
                 
-                switch (pessoaDeck.check21(pessoaDeck.somaPontos(true), botDeck.somaPontos(true), pessoaDeck.somaPontos(false),botDeck.somaPontos(false))) {
+                switch (pessoaDeck.check21(botDeck.maoForte(botDeck.somaPontos(true), botDeck.somaPontos(false)), pessoaDeck.maoForte(pessoaDeck.somaPontos(true), pessoaDeck.somaPontos(false)))) {
                     case 0: 
                     System.out.println("Você perdeu!");
                     pessoa.removeSaldo(25);
