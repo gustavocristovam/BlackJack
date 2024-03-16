@@ -127,12 +127,22 @@ public class CartasPlayers{
 
 
 
-        public int maoForte( int blackJack, int NoBlackJack) {
+        public int maoForte( int blackJack, int noBlackJack) {
             int pontos;
-            if (21-blackJack < 21-NoBlackJack) { // SE A MAO EM QUE O "A" VALE 1, A SOMA DE QUANTIDADE DE PONTOS -21 FOR maior QUE A MAO EM QUE O "A" 11. SETAR MAO EM QUE O "A" VALE 1
-                pontos = blackJack;                 //EX: DECK: A9  BLACKJACK = 20  NOBLACKJACK = 10
-           } else if ((21-blackJack > 21-NoBlackJack)) {
-               pontos = NoBlackJack;
+
+            if (21-blackJack < 21-noBlackJack) { // SE A MAO EM QUE O "A" VALE 1, A SOMA DE QUANTIDADE DE PONTOS -21 FOR maior QUE A MAO EM QUE O "A" 11. SETAR MAO EM QUE O "A" VALE 1
+                if (21-blackJack < 0) {  
+                    pontos = noBlackJack;      //EX: DECK: A9  BLACKJACK = 20  NOBLACKJACK = 10
+                } else {
+                    pontos = blackJack;
+                }                 
+           } else if ((21-blackJack > 21-noBlackJack)) {
+                if (21-noBlackJack < 0) {
+                    pontos = blackJack;
+                } else {
+                    pontos = noBlackJack;
+                }
+              
            } else {
                pontos = blackJack;
            }

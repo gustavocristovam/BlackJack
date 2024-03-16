@@ -32,13 +32,16 @@ public class Jogo {
        
         System.out.println("Saldo: " + pessoa.getSaldo());
        
+       for (int i = 0; i < 2; i++) {
+        pessoaDeck.addCarta();
+        botDeck.addCarta();
+       }
        
-        pessoaDeck.addCarta();
-        pessoaDeck.addCarta();
-        botDeck.addCarta();
-        botDeck.addCarta();
+      
+        
+
+
         System.out.println("CARTAS BARALHO:" + baralho.quantidadeDeCartas());
-    
         System.out.println("Suas cartas são: " + pessoaDeck.getCarta(0) + " : " + pessoaDeck.getCarta(1)  + "        = " + pessoaDeck.somaPontos(true) + "/"  + pessoaDeck.somaPontos(false));
         System.out.println("------------------------------------------------------------------------------------");
         System.out.println("Cartas do BOT: " + botDeck.getCarta(0) + " : |X|" );
@@ -63,13 +66,9 @@ public class Jogo {
 
                     botDeck.addCarta();
            }
-
-            
             System.out.println("------------------------------------------------------------------------------------");
                 System.out.println("Bot " + botDeck.listarCartas()  + "        = " + botDeck.somaPontos(true) + "/"  + botDeck.somaPontos(false));
                 System.out.println();
-
-                
                 switch (pessoaDeck.check21(botDeck.maoForte(botDeck.somaPontos(true), botDeck.somaPontos(false)), pessoaDeck.maoForte(pessoaDeck.somaPontos(true), pessoaDeck.somaPontos(false)))) {
                     case 0: 
                     System.out.println("Você perdeu!");
@@ -89,25 +88,14 @@ public class Jogo {
                 System.out.println("JOGAR NOVAMENTE? (true/false)");
                 jogar_novamente = teclado.nextBoolean();
                 break;
-      
             }
         } while (true);
-        
     } else {
         System.out.println("Você nao dinheiro suficiente para jogar!");
         break;
     }
-    
     } while (jogar_novamente);
-   
-        
-        
-
-       
-
     }
-
-
    // Método para limpar o console
     public static void clearConsole() {
         try {
