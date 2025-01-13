@@ -1,6 +1,5 @@
 import java.util.Random;
 import java.util.Scanner;
-
 import Baralho.Baralho;
 import Baralho.CartasPlayers;
 import Players.Bot;
