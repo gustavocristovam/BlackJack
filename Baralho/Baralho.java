@@ -1,5 +1,7 @@
 package Baralho;
 import java.util.ArrayList;
+import java.util.Random;
+
 
 public class Baralho {
     private ArrayList<String> cartas;
@@ -10,6 +12,8 @@ public class Baralho {
         criarBaralho();
     }
 
+
+    // Método privado para criar o baralho global
     // Método privado para criar o baralho global
     private void criarBaralho() {
         String[] valores = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
@@ -19,6 +23,14 @@ public class Baralho {
             }
         }
     }
+
+    //PEGAR CARTA ALEATORIA DO BARALHO
+    public int randomCarta() {
+        Random random = new Random();
+        int randomizar = random.nextInt(quantidadeDeCartas());
+        return randomizar;
+    }
+
 
     // Método para acessar o baralho global
     public ArrayList<String> getBaralhoGlobal() {
@@ -33,7 +45,7 @@ public class Baralho {
     }
 
     // Método para remover uma carta do baralho global
-    public void removerCarta(int index) {
+    private void removerCarta(int index) {
         cartas.remove(index);
     }
 
@@ -44,6 +56,11 @@ public class Baralho {
 
     // Método para contar quantas cartas há no baralho global
     public int quantidadeDeCartas() {
+        if (cartas.size() == 0) {
+            System.out.println("Não existem mais cartas no Baralho. Encerrando jogo...");
+            return 0;
+        }
+
         return cartas.size();
     }
 

@@ -1,6 +1,17 @@
 package Players;
+import Baralho.Deck;
+
 public class Players {
-     // Lógica comum para todos os jogadores
+    private Deck mao;
+
+
+ public Deck getMao() {
+  return mao;
  }
+
+ public void setMao(Deck mao) {
+  this.mao = mao;
+ }
+}
  
  

@@ -1,39 +1,40 @@
-import java.util.Random;
 import java.util.Scanner;
 import Baralho.Baralho;
-import Baralho.CartasPlayers;
 import Players.Bot;
 import Players.Pessoa;
+import Baralho.Deck;
+import Calculos.Calculos;
 
 public class Jogo {
     public static void main(String[] args) {
         boolean jogar_novamente;
         boolean pegar_cartas;
         Scanner teclado = new Scanner(System.in);
-        Pessoa pessoa = new Pessoa();
+        Calculos calculos = new Calculos();
+        Pessoa jogador = new Pessoa();
         Bot bot = new Bot();
         
        
     do {
+        if ( jogador.getSaldo() > 0) {
 
-        if ( pessoa.getSaldo() > 0) {
-           
             Baralho baralho = new Baralho();
-       
-        CartasPlayers pessoaDeck = new CartasPlayers(baralho);
-        CartasPlayers botDeck = new CartasPlayers(baralho);
 
-        pessoaDeck.setJogador(pessoa);
-        botDeck.setJogador(bot);
-        pessoaDeck.clearCartas();
-        botDeck.clearCartas();
+
+        Deck deckJogador = new Deck(baralho);
+        Deck deckBot = new Deck(baralho);
+        jogador.setMao(deckJogador);
+        bot.setMao(deckBot);
+        jogador.getMao().clearCartas();
+        bot.getMao().clearCartas();
+
         clearConsole(); 
        
-        System.out.println("Saldo: " + pessoa.getSaldo());
+        System.out.println("Saldo: " + jogador.getSaldo());
        
        for (int i = 0; i < 2; i++) {
-        pessoaDeck.addCarta();
-        botDeck.addCarta();
+        jogador.getMao().addCarta();
+        bot.getMao().addCarta();
        }
        
       
@@ -41,48 +42,37 @@ public class Jogo {
 
 
         System.out.println("CARTAS BARALHO:" + baralho.quantidadeDeCartas());
-        System.out.println("Suas cartas são: " + pessoaDeck.getCarta(0) + " : " + pessoaDeck.getCarta(1)  + "        = " + pessoaDeck.somaPontos(true) + "/"  + pessoaDeck.somaPontos(false));
+        System.out.println("Suas cartas são: " + jogador.getMao().getCarta(0) + " : " + jogador.getMao().getCarta(1)  + "        = " + jogador.getMao().valorDeck());
         System.out.println("------------------------------------------------------------------------------------");
-        System.out.println("Cartas do BOT: " + botDeck.getCarta(0) + " : |X|" );
+        System.out.println("Cartas do BOT: " + bot.getMao().getCarta(0) + " : |X|" );
         do { // DO PARA PEGAR MAIS CARTAS!
             System.out.println("Pegas mais cartas? (true/false)");
             pegar_cartas = teclado.nextBoolean();
             if (pegar_cartas) {
                 clearConsole();
-                pessoaDeck.addCarta();
-                System.out.println("Saldo: " + pessoa.getSaldo());
-                System.out.println("Suas " + pessoaDeck.listarCartas() + "        = " + pessoaDeck.somaPontos(true) + "/"  + pessoaDeck.somaPontos(false));
+                jogador.getMao().addCarta();
+                System.out.println("Saldo: " + jogador.getSaldo());
+                System.out.println("Suas " + jogador.getMao().listarCartas() + "        = " + jogador.getMao().valorDeck());
                 System.out.println();
                 System.out.println("------------------------------------------------------------------------------------");
-                System.out.println("Cartas do BOT: " + botDeck.getCarta(0) + " : |X|" );
+                System.out.println("Cartas do BOT: " + bot.getMao().getCarta(0) + " : |X|" );
                 
             } else {
                 clearConsole();
-                System.out.println("Saldo: " + pessoa.getSaldo());
-                System.out.println("Suas " + pessoaDeck.listarCartas()  + "        = " + pessoaDeck.somaPontos(true) + "/"  + pessoaDeck.somaPontos(false));
+                System.out.println("Saldo: " + jogador.getSaldo());
+                System.out.println("Suas " + jogador.getMao().listarCartas()  + "      = " + jogador.getMao().valorDeck());
                 
-                while (botDeck.maoForte(botDeck.somaPontos(true), botDeck.somaPontos(false)) < 17) { // 2 DECK COM 2 VALORES PRIMEIRO BUG A SER RESOLVIDO
+                while (bot.getMao().valorDeck() < 17) { // 2 DECK COM 2 VALORES PRIMEIRO BUG A SER RESOLVIDO
 
-                    botDeck.addCarta();
+                    bot.getMao().addCarta();
            }
             System.out.println("------------------------------------------------------------------------------------");
-                System.out.println("Bot " + botDeck.listarCartas()  + "        = " + botDeck.somaPontos(true) + "/"  + botDeck.somaPontos(false));
+                System.out.println("Bot " + bot.getMao().listarCartas()  + "        = " + bot.getMao().valorDeck());
                 System.out.println();
-                switch (pessoaDeck.check21(botDeck.maoForte(botDeck.somaPontos(true), botDeck.somaPontos(false)), pessoaDeck.maoForte(pessoaDeck.somaPontos(true), pessoaDeck.somaPontos(false)))) {
-                    case 0: 
-                    System.out.println("Você perdeu!");
-                    pessoa.removeSaldo(25);
-                    break;
-                    case 1: 
-                    System.out.println("Voce ganhou!");  
-                    pessoa.setSaldo(25);
-                    break;
-                    case 2: 
-                    System.out.println("Você empatou!");  break;
-                    case 3:
-                     System.out.println("ERROR!");  break;
-                    default:
-                     System.out.println("ERROR no Switch!");  break;
+                if(calculos.check21(bot.getMao().valorDeck(),jogador.getMao().valorDeck())){
+                    jogador.setSaldo(50);
+                }else {
+                    jogador.setSaldo(-50);
                 }
                 System.out.println("JOGAR NOVAMENTE? (true/false)");
                 jogar_novamente = teclado.nextBoolean();
@@ -95,6 +85,7 @@ public class Jogo {
     }
     } while (jogar_novamente);
     }
+
    // Método para limpar o console
     public static void clearConsole() {
         try {
