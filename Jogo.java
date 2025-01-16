@@ -28,19 +28,33 @@ public class Jogo {
         jogador.getMao().clearCartas();
         bot.getMao().clearCartas();
 
-        clearConsole(); 
-       
-        System.out.println("Saldo: " + jogador.getSaldo());
-       
+        clearConsole();
+
+        System.out.println("Saldo Atual: " + jogador.getSaldo());
+        System.out.println("Digite o valor da aposta: ");
+
+        int posta = teclado.nextInt();
+        while (true) {
+            if(posta <= jogador.getSaldo()) {
+                break;
+            } else {
+                System.out.println("VALOR INVÁLIDO!");
+                System.out.println("Saldo Atual: " + jogador.getSaldo());
+                System.out.println("Digite o valor da aposta: ");
+                posta = teclado.nextInt();
+            }
+        }
+
+        jogador.setSaldo(-posta);
        for (int i = 0; i < 2; i++) {
         jogador.getMao().addCarta();
         bot.getMao().addCarta();
        }
-       
-      
-        
 
 
+            clearConsole();
+
+            System.out.println("Saldo Atual: " + jogador.getSaldo());
         System.out.println("CARTAS BARALHO:" + baralho.quantidadeDeCartas());
         System.out.println("Suas cartas são: " + jogador.getMao().getCarta(0) + " : " + jogador.getMao().getCarta(1)  + "        = " + jogador.getMao().valorDeck());
         System.out.println("------------------------------------------------------------------------------------");
@@ -49,6 +63,7 @@ public class Jogo {
             System.out.println("Pegas mais cartas? (true/false)");
             pegar_cartas = teclado.nextBoolean();
             if (pegar_cartas) {
+                clearConsole();
                 clearConsole();
                 jogador.getMao().addCarta();
                 System.out.println("Saldo: " + jogador.getSaldo());
@@ -70,9 +85,11 @@ public class Jogo {
                 System.out.println("Bot " + bot.getMao().listarCartas()  + "        = " + bot.getMao().valorDeck());
                 System.out.println();
                 if(calculos.check21(bot.getMao().valorDeck(),jogador.getMao().valorDeck())){
-                    jogador.setSaldo(50);
-                }else {
-                    jogador.setSaldo(-50);
+                    jogador.setSaldo(posta*2);
+                } else {
+                    if(jogador.getMao().valorDeck() == bot.getMao().valorDeck()) {
+                        jogador.setSaldo(posta);
+                    }
                 }
                 System.out.println("JOGAR NOVAMENTE? (true/false)");
                 jogar_novamente = teclado.nextBoolean();
