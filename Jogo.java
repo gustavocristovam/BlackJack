@@ -84,7 +84,7 @@ public class Jogo {
             System.out.println("------------------------------------------------------------------------------------");
                 System.out.println("Bot " + bot.getMao().listarCartas()  + "        = " + bot.getMao().valorDeck());
                 System.out.println();
-                if(calculos.check21(bot.getMao().valorDeck(),jogador.getMao().valorDeck())){
+                if(calculos.check21(bot.getMao(),jogador.getMao())){
                     jogador.setSaldo(posta*2);
                 } else {
                     if(jogador.getMao().valorDeck() == bot.getMao().valorDeck()) {

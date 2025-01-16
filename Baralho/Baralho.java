@@ -16,9 +16,9 @@ public class Baralho {
     // Método privado para criar o baralho global
     // Método privado para criar o baralho global
     private void criarBaralho() {
-        String[] valores = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
+        String[] valores = {"A", "2", "8", "K"};
         for (String valor : valores) {
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 2; i++) {
                 cartas.add(valor);
             }
         }

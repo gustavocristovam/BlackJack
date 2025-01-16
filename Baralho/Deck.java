@@ -17,6 +17,10 @@ public class Deck {
     public String getCarta(int index) {
         return this.cartas.get(index);
     }
+
+    public ArrayList<String> getCartas() {
+        return this.cartas;
+    }
     public int qntDeCartas() {
         return cartas.size();
     }
@@ -53,29 +57,6 @@ public class Deck {
             }
         }
         return listaCartas.toString();
-    }
-
-    public int somaPontos(boolean blackjack) {
-        int soma = 0;
-        //boolean aceUsado = false;
-        if (blackjack) {
-            for (String carta : cartas) {
-                if (!carta.equals("A")) {
-                    soma += getValueCarta(carta);
-                } else if (carta.equals("A")){
-                    soma += 11;
-                }
-            }
-        }else if (!blackjack) {
-            for (String carta : cartas) {
-                if (!carta.equals("A")) {
-                    soma += getValueCarta(carta);
-                } else if (carta.equals("A")){
-                    soma += 1;
-                }
-            }
-        }
-        return soma;
     }
 
     public int valorDeck() {
